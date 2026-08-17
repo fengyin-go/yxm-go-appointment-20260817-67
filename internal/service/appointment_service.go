@@ -30,7 +30,9 @@ func (s *Service) BookAppointment(scheduleID, patientID string) (*model.Appointm
 		CreatedAt:  time.Now(),
 		UpdatedAt:  time.Now(),
 	}
-	_ = s.store.CreateAppointment(appt)
+	if err := s.store.CreateAppointment(appt); err != nil {
+		return nil, err
+	}
 
 	schedule.BookedSlots++
 	if err := s.store.UpdateSchedule(schedule); err != nil {

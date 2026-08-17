@@ -25,9 +25,6 @@ func (s *MemoryStore) GetAppointment(id string) (*model.Appointment, error) {
 func (s *MemoryStore) ListAppointments() []*model.Appointment {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
-	if s.appointments == nil {
-		return nil
-	}
 	list := make([]*model.Appointment, 0, len(s.appointments))
 	for _, a := range s.appointments {
 		list = append(list, a)

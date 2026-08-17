@@ -23,6 +23,7 @@ func NewMemoryStore() *MemoryStore {
 		doctors:      make(map[string]*model.Doctor),
 		schedules:    make(map[string]*model.Schedule),
 		patients:     make(map[string]*model.Patient),
+		appointments: make(map[string]*model.Appointment),
 	}
 }
 
