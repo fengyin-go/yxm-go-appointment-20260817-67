@@ -60,7 +60,7 @@ func (s *Service) ListAppointments(filter model.AppointmentFilter, page, size in
 		return matched[i].CreatedAt.After(matched[j].CreatedAt)
 	})
 	total := len(matched)
-	start := (page - 1) * size
+	start := page * size
 	if start >= total {
 		return []*model.Appointment{}, total, nil
 	}

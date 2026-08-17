@@ -41,6 +41,7 @@ func (s *Server) bookAppointment(w http.ResponseWriter, r *http.Request) {
 // listAppointments 预约列表：GET /api/appointments?patient_id=&doctor_id=&schedule_id=&status=&page=&size=
 func (s *Server) listAppointments(w http.ResponseWriter, r *http.Request) {
 	pp := httpx.ParsePagination(r, 20, s.maxPageSize())
+	pp.Page++
 	filter := model.AppointmentFilter{
 		PatientID:  r.URL.Query().Get("patient_id"),
 		DoctorID:   r.URL.Query().Get("doctor_id"),
