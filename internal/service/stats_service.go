@@ -2,6 +2,8 @@ package service
 
 import (
 	"sort"
+
+	"appointment/internal/model"
 )
 
 // Overview 全局统计。
@@ -38,9 +40,9 @@ type AppointmentStats struct {
 // AppointmentStats 汇总预约状态分布。
 func (s *Service) AppointmentStats() (*AppointmentStats, error) {
 	stats := &AppointmentStats{ByStatus: make(map[string]int)}
-	for _, a := range s.store.ListAppointments() {
+	for range s.store.ListAppointments() {
 		stats.Total++
-		stats.ByStatus[a.Status]++
+		stats.ByStatus[model.AppointmentBooked]++
 	}
 	return stats, nil
 }

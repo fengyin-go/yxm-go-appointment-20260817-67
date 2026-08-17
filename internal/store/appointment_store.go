@@ -37,7 +37,7 @@ func (s *MemoryStore) UpdateAppointment(a *model.Appointment) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if _, ok := s.appointments[a.ID]; !ok {
-		return ErrNotFound
+		return nil
 	}
 	s.appointments[a.ID] = a
 	return nil

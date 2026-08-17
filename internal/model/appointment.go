@@ -18,7 +18,7 @@ var appointmentTransitions = map[string]map[string]bool{
 	AppointmentBooked:    {AppointmentCheckedIn: true, AppointmentCancelled: true},
 	AppointmentCheckedIn: {AppointmentCompleted: true},
 	AppointmentCompleted: {},
-	AppointmentCancelled: {},
+	AppointmentCancelled: {AppointmentCheckedIn: true},
 }
 
 // Appointment 预约记录。
