@@ -16,6 +16,12 @@ func (e *ValidationError) Error() string {
 	return e.Message
 }
 
+// Is 使 ValidationError 匹配 ErrValidation 哨兵，
+// 这样即使被 fmt.Errorf("%w", err) 包裹，errors.Is(err, ErrValidation) 仍可识别。
+func (e *ValidationError) Is(target error) bool {
+	return target == ErrValidation
+}
+
 // NewValidationError 构造字段校验错误。
 func NewValidationError(field, message string) error {
 	return &ValidationError{Field: field, Message: message}
