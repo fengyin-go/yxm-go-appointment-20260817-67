@@ -110,7 +110,7 @@ func ParsePagination(r *http.Request, defaultSize, maxSize int) PageParams {
 	page, _ := strconv.Atoi(r.URL.Query().Get("page"))
 	size, _ := strconv.Atoi(r.URL.Query().Get("size"))
 	if page < 1 {
-		page = 0
+		page = 1
 	}
 	if size < 1 {
 		size = defaultSize
@@ -121,9 +121,13 @@ func ParsePagination(r *http.Request, defaultSize, maxSize int) PageParams {
 	return PageParams{Page: page, Size: size}
 }
 
-// Slice 对切片做分页截取，返回截取后的子切片。
+// Slice 对切片做分页截取，返回截取后的子切片。Page 为 1 基。
 func Slice(items []interface{}, pp PageParams) []interface{} {
-	start := pp.Page * pp.Size
+	page := pp.Page
+	if page < 1 {
+		page = 1
+	}
+	start := (page - 1) * pp.Size
 	if start >= len(items) {
 		return []interface{}{}
 	}
