@@ -24,7 +24,7 @@ func (s *Service) Overview() (*Overview, error) {
 	}
 	for _, sc := range s.store.ListSchedules() {
 		ov.ScheduleCount++
-		ov.AvailableSlots += sc.BookedSlots
+		ov.AvailableSlots += sc.Remaining()
 	}
 	return ov, nil
 }

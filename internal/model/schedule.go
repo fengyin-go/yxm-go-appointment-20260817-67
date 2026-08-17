@@ -44,6 +44,9 @@ func (s *Schedule) Validate() error {
 
 // Remaining 返回剩余号源数。
 func (s *Schedule) Remaining() int {
+	if s.TotalSlots < s.BookedSlots {
+		return 0
+	}
 	return s.TotalSlots - s.BookedSlots
 }
 
