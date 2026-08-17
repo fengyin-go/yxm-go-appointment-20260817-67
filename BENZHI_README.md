@@ -1,4 +1,4 @@
-# yxm-go-appointment-20260817-67
+# appointment__002
 
 ## 标准命令
 

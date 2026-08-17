@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"sort"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 // CreateSchedule 创建排班（号源）。
 func (s *Service) CreateSchedule(input model.Schedule) (*model.Schedule, error) {
 	if err := input.Validate(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("create schedule: %w", err)
 	}
 	if _, err := s.store.GetDoctor(input.DoctorID); err != nil {
 		return nil, err

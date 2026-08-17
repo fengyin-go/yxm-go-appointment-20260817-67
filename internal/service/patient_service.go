@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"sort"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 // CreatePatient 创建患者。
 func (s *Service) CreatePatient(input model.Patient) (*model.Patient, error) {
 	if err := input.Validate(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("create patient: %w", err)
 	}
 	p := &model.Patient{
 		ID:        idgen.Hex(),

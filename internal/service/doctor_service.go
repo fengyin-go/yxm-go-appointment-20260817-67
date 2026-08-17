@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"sort"
 	"time"
 
@@ -11,7 +12,7 @@ import (
 // CreateDoctor 创建医生。
 func (s *Service) CreateDoctor(input model.Doctor) (*model.Doctor, error) {
 	if err := input.Validate(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("create doctor: %w", err)
 	}
 	if _, err := s.store.GetDepartment(input.DepartmentID); err != nil {
 		return nil, err
