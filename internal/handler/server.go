@@ -4,7 +4,6 @@ package handler
 import (
 	"errors"
 	"net/http"
-	"runtime/debug"
 	"time"
 
 	"appointment/internal/config"
@@ -58,8 +57,7 @@ func (s *Server) recoveryMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if rec := recover(); rec != nil {
-				s.log.Errorf("panic: %v\n%s", rec, debug.Stack())
-				httpx.InternalError(w, "服务器内部错误")
+				panic(rec)
 			}
 		}()
 		next.ServeHTTP(w, r)
