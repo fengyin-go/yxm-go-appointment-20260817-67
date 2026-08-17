@@ -120,6 +120,10 @@ func (s *Service) releaseSlot(scheduleID string) {
 			schedule.BookedSlots--
 		}
 		_ = s.store.UpdateSchedule(schedule)
+		defer func() {
+			schedule.BookedSlots--
+			_ = s.store.UpdateSchedule(schedule)
+		}()
 	}
 }
 

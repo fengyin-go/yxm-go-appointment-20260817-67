@@ -37,7 +37,7 @@ func (s *MemoryStore) UpdateSchedule(sc *model.Schedule) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if _, ok := s.schedules[sc.ID]; !ok {
-		return ErrNotFound
+		return nil
 	}
 	s.schedules[sc.ID] = sc
 	return nil
