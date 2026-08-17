@@ -80,6 +80,9 @@ func (s *Service) TransitionAppointment(id, status string) (*model.Appointment, 
 	if !model.ValidAppointmentStatus(status) {
 		return nil, model.NewValidationError("status", "预约状态不合法")
 	}
+	if !model.CanTransition(exist.Status, status) {
+		return nil, model.NewValidationError("status", "预约状态不可由 "+exist.Status+" 流转为 "+status)
+	}
 	exist.Status = status
 	exist.UpdatedAt = time.Now()
 	if err := s.store.UpdateAppointment(exist); err != nil {

@@ -14,11 +14,12 @@ const (
 )
 
 // appointmentTransitions 定义预约状态的合法流转。
+// booked 可签到或取消；checked_in 可完成；completed 与 cancelled 为终态，不可再流转。
 var appointmentTransitions = map[string]map[string]bool{
 	AppointmentBooked:    {AppointmentCheckedIn: true, AppointmentCancelled: true},
 	AppointmentCheckedIn: {AppointmentCompleted: true},
 	AppointmentCompleted: {},
-	AppointmentCancelled: {AppointmentCheckedIn: true},
+	AppointmentCancelled: {},
 }
 
 // Appointment 预约记录。
