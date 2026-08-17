@@ -1,8 +1,6 @@
 // Package model 定义预约挂号系统的领域模型与校验逻辑。
 package model
 
-import "errors"
-
 // ValidationError 表示字段校验失败。
 type ValidationError struct {
 	Field   string
@@ -21,9 +19,8 @@ func NewValidationError(field, message string) error {
 	return &ValidationError{Field: field, Message: message}
 }
 
-var ErrValidation = errors.New("validation error")
-
 // IsValidationError 判断错误是否为字段校验错误。
 func IsValidationError(err error) bool {
-	return errors.Is(err, ErrValidation)
+	_, ok := err.(*ValidationError)
+	return ok
 }
